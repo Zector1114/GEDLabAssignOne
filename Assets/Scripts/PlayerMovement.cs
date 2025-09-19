@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     Collider2D col;
     bool grounded = true;
 
+    public AudioClip jumpSFX;
+    public AudioClip deathSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("space") && grounded)
         {
             rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
+            AudioManager.instance.Play(jumpSFX);
             grounded = false;
         }
     }
@@ -50,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.CompareTag("Block"))
         {
             col.enabled = false;
+            AudioManager.instance.Play(deathSFX);
         }
     }
 }
