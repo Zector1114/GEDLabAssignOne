@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
 
     public AudioClip jumpSFX;
     public AudioClip deathSFX;
+
+    [SerializeField] GameObject gOUI;
+    [SerializeField] GameObject factory;
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,9 @@ public class PlayerMovement : MonoBehaviour
         {
             col.enabled = false;
             AudioManager.instance.Play(deathSFX);
+
+            gOUI.SetActive(true);
+            factory.SetActive(false);
         }
     }
 }

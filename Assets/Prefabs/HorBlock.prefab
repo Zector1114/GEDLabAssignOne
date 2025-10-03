@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 969787020971620414}
   - component: {fileID: 1450777768031807611}
   - component: {fileID: 2396949096949837151}
-  - component: {fileID: 6184636835523402973}
+  - component: {fileID: 7132759990795504025}
   m_Layer: 0
-  m_Name: Block
+  m_Name: HorBlock
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.6301887, g: 0.6301887, b: 0.6301887, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.8668132, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &6184636835523402973
+--- !u!114 &7132759990795504025
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,6 +168,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 6502585613306325273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35297086c1fec044781adbd938572b1c, type: 3}
+  m_Script: {fileID: 11500000, guid: b79200718eb18ad4992e63f839b88430, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 2396949096949837151}
+  force: 0.5
