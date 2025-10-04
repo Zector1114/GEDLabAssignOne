@@ -44,6 +44,5 @@ public class Factory : MonoBehaviour
     public void AppQuit()
     {
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
     }
 }
