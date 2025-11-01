@@ -22,6 +22,8 @@ public class AudioManager : Observer
         }
 
         DontDestroyOnLoad(gameObject);
+
+        effectsSource = GetComponent<AudioSource>();
     }
 
     public void Play(AudioClip clip)

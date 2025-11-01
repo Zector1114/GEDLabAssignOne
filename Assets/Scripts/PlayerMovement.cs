@@ -8,17 +8,17 @@ public class PlayerMovement : Subject
     [SerializeField] float jump = 5;
     Rigidbody2D rb;
     Collider2D col;
-    public bool grounded { get; private set; } = true;
-    public bool isDead { get; private set; } = false;
 
     public AudioClip jumpSFX;
     public AudioClip deathSFX;
+    public bool grounded { get; private set; } = true;
+    public bool isDead { get; private set; } = false;
 
     private Factory factory;
     private AudioManager audioManager;
     private GameManager gameManager;
 
-    private void Awake()
+    void Awake()
     {
         factory = FindObjectOfType<Factory>();
         audioManager = FindObjectOfType<AudioManager>();
@@ -28,14 +28,14 @@ public class PlayerMovement : Subject
         col.enabled = true;
     }
 
-    private void OnEnable()
+    void OnEnable()
     {
         if (audioManager) Attach(audioManager);
         if (factory) Attach(factory);
         if (gameManager) Attach(gameManager);
     }
 
-    private void OnDisable()
+    void OnDisable()
     {
         if (audioManager) Detach(audioManager);
         if (factory) Detach(factory);
@@ -61,7 +61,7 @@ public class PlayerMovement : Subject
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Ground")
         {
@@ -69,7 +69,7 @@ public class PlayerMovement : Subject
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Block"))
         {
