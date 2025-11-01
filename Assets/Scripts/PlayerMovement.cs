@@ -2,29 +2,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Subject
 {
     [SerializeField] float speed = 5;
     [SerializeField] float jump = 5;
     Rigidbody2D rb;
     Collider2D col;
-    bool grounded = true;
+    public bool grounded { get; private set; } = true;
+    public bool isDead { get; private set; } = false;
 
     public AudioClip jumpSFX;
     public AudioClip deathSFX;
 
-    [SerializeField] GameObject gOUI;
-    [SerializeField] GameObject factory;
+    private Factory factory;
+    private AudioManager audioManager;
+    private GameManager gameManager;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
+        factory = FindObjectOfType<Factory>();
+        audioManager = FindObjectOfType<AudioManager>();
+        gameManager = FindObjectOfType<GameManager>();
         rb = GetComponent<Rigidbody2D>();
         col = GetComponent<Collider2D>();
         col.enabled = true;
     }
 
-    // Update is called once per frame
+    private void OnEnable()
+    {
+        if (audioManager) Attach(audioManager);
+        if (factory) Attach(factory);
+        if (gameManager) Attach(gameManager);
+    }
+
+    private void OnDisable()
+    {
+        if (audioManager) Detach(audioManager);
+        if (factory) Detach(factory);
+        if (gameManager) Detach(gameManager);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown("a"))
@@ -38,8 +55,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown("space") && grounded)
         {
             rb.AddForce(Vector2.up * jump, ForceMode2D.Impulse);
-            AudioManager.instance.Play(jumpSFX);
             grounded = false;
+
+            NotifyObservers();
         }
     }
 
@@ -55,11 +73,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Block"))
         {
+            isDead = true;
             col.enabled = false;
-            AudioManager.instance.Play(deathSFX);
 
-            gOUI.SetActive(true);
-            factory.SetActive(false);
+            NotifyObservers();
         }
     }
 }

@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement;
 
-public class Factory : MonoBehaviour
+public class Factory : Observer
 {
     int limit = 2;
     int score = 0;
@@ -12,6 +11,7 @@ public class Factory : MonoBehaviour
     public float targetTime = 0.5f;
     [SerializeField] List<BlockSpawn> spawns = new List<BlockSpawn>();
     [SerializeField] TextMeshProUGUI text;
+    private PlayerMovement playerMovement;
 
     void Update()
     {
@@ -36,13 +36,16 @@ public class Factory : MonoBehaviour
         }
     }
 
-    public void Reload(string str)
+    public override void Notify(Subject subject)
     {
-        SceneManager.LoadScene(str);
-    }
+        if (!playerMovement) playerMovement = subject.GetComponent<PlayerMovement>();
 
-    public void AppQuit()
-    {
-        Application.Quit();
+        if (playerMovement)
+        {
+            if (playerMovement.isDead)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

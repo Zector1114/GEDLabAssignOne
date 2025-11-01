@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
+public class AudioManager : Observer
 {
-    public AudioSource effectsSource;
+    AudioSource effectsSource;
 
     public static AudioManager instance { get; private set; } = null;
+    private PlayerMovement playerMovement;
 
     void Awake()
     {
@@ -27,5 +28,22 @@ public class AudioManager : MonoBehaviour
     {
         effectsSource.clip = clip;
         effectsSource.Play();
+    }
+
+    public override void Notify(Subject subject)
+    {
+        if (!playerMovement) playerMovement = subject.GetComponent<PlayerMovement>();
+
+        if (playerMovement)
+        {
+            if (playerMovement.isDead)
+            {
+                Play(playerMovement.deathSFX);
+            }
+            else if (playerMovement.grounded == false)
+            {
+                Play(playerMovement.jumpSFX);
+            }
+        }
     }
 }
