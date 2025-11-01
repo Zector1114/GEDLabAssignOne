@@ -11,8 +11,8 @@ In the game, I applied the abstract class "Subject" to the PlayerMovement.cs scr
 -- Why is this pattern a good choice for spawning these objects?
 Its a good choice as by doing it this way, the observer scripts can easily have their own Notify function changed in their own script without having to alter anything else (besides maybe having to add new variables in PlayerMovement to describe any new states). It also makes it much easier to add in more observers as all you need to do is add it to the list of observers in the PlayerMovement script.
 
-Flowchart Diagram: 
-
 Jump Sound: https://opengameart.org/content/platformer-jumping-sounds
 
 Death Sound: https://opengameart.org/content/bombexplosion8bit
+
+Flowchart Diagram:
